@@ -7,11 +7,15 @@ const orm = {
         the next 2 parameters are arrays containing the columns and values you wish to pass into the record*/
         return new Promise((resolve, reject) => {
             const colStr = columns.join(", ");
-            const valStr = values.map(value => value = "?").join(" ");
+            const valStr = values.map(value => value = "?").join(", ");
             const queryStr = `INSERT INTO ${table} (${colStr}) VALUES (${valStr});`;
             console.log(queryStr);
+            console.log(values);
             connection.query(queryStr, values, (err, res) => {
-                if (err) reject();
+                if (err) {
+                    console.log(err);
+                    reject();
+                }
                 resolve(res);
             });
         });
@@ -52,7 +56,6 @@ const orm = {
             const queryStr = "DELETE FROM ?? WHERE ?? = ?";
             condition.unshift(table);
             const queryParams = condition;
-            console.log(queryStr, queryParams);
             connection.query(queryStr, queryParams, (err, res) => {
                 if (err) reject();
                 resolve(res);

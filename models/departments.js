@@ -1,6 +1,6 @@
 const orm = require("../config/orm");
 
-const department = {
+const departments = {
     create: (name) => {
         return new Promise(async (resolve, reject) => {
             let res = await orm.createRecord("departments", ["name"], [name]);
@@ -24,10 +24,10 @@ const department = {
     },
 
     delete: (id) => {
-        // return new Promise(async (resolve, reject) => {
-        orm.deleteRecord("departments", ["id", id]);
-        // });
+        return new Promise(async (resolve, reject) => {
+            orm.deleteRecord("departments", ["id", id]);
+        });
     }
 }
 
-module.exports = department;
+module.exports = departments;
